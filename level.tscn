@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://cf5kiw1h2ibjt"]
+
+[ext_resource type="Script" uid="uid://bu5u62qfayuf2" path="res://player.gd" id="1_u52ul"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vonw3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oi3di"]
+albedo_color = Color(0.0627451, 0.22352941, 1, 1)
+
+[node name="Level" type="Node3D"]
+
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, 0.5)
+size = Vector3(10, 1, 10)
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46499825, 0)
+script = ExtResource("1_u52ul")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_vonw3")
+surface_material_override/0 = SubResource("StandardMaterial3D_oi3di")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.80801266, -0.37955976, 0.45061067, -0.3995192, 0.20912902, 0.89255226, -0.43301263, -0.9012211, 0.017337475, 3.518427, 5.0273695, 0.89130926)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.6214076, 0.78348744, 0, -0.78348744, 0.6214076, 0.31043124, 4.210118, 6.2201138)
