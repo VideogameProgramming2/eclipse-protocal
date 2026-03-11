@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cf5kiw1h2ibjt"]
+[gd_scene load_steps=11 format=3 uid="uid://cf5kiw1h2ibjt"]
 
 [ext_resource type="Script" uid="uid://bxu54q5wp043k" path="res://LevelController.gd" id="1_oi3di"]
 [ext_resource type="Script" uid="uid://bu5u62qfayuf2" path="res://player.gd" id="1_u52ul"]
 [ext_resource type="PackedScene" uid="uid://d1lapn5j0bxk1" path="res://Characters/akai_e_espiritu.fbx" id="2_vonw3"]
+[ext_resource type="Script" uid="uid://ih4enab4o1ss" path="res://enemy.gd" id="4_0b4ue"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vonw3"]
 
@@ -11,16 +12,19 @@ albedo_color = Color(0.0627451, 0.22352941, 1, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u52ul"]
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_f2txt"]
+vertices = PackedVector3Array(-4.5, 1, -4.5, -4.5, 1, 4.5, 4.5, 1, 4.5, 4.5, 1, -4.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1ainy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n6hdu"]
+
 [node name="Level" type="Node3D"]
 script = ExtResource("1_oi3di")
 
-[node name="Ground" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -1, 0.5)
-use_collision = true
-size = Vector3(10, 1, 10)
-
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.46499825, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4875495, -0.7417445)
 script = ExtResource("1_u52ul")
 
 [node name="DebugCapsule3D" type="MeshInstance3D" parent="Player"]
@@ -39,4 +43,25 @@ transform = Transform3D(0.80801266, -0.37955976, 0.45061067, -0.3995192, 0.20912
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.6214076, 0.78348744, 0, -0.78348744, 0.6214076, 0.31043124, 4.210118, 6.2201138)
+transform = Transform3D(1, 0, 0, 0, 0.6214076, 0.78348744, 0, -0.78348744, 0.6214076, 0.31, 5.21, 6.22)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_f2txt")
+
+[node name="Ground" type="CSGBox3D" parent="NavigationRegion3D"]
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="Enemy" type="CharacterBody3D" parent="." groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.505686, 3.7806766)
+script = ExtResource("4_0b4ue")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy"]
+mesh = SubResource("CapsuleMesh_1ainy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy"]
+shape = SubResource("CapsuleShape3D_n6hdu")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy"]
+path_desired_distance = 0.5
+target_desired_distance = 1.5

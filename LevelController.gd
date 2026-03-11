@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var cam: Camera3D = $Camera3D
 @onready var player: CharacterBody3D = $Player
+@onready var target = $Player
 
 func _physics_process(_delta: float) -> void:
 	var mouse_pos := get_viewport().get_mouse_position()
@@ -16,9 +17,11 @@ func _physics_process(_delta: float) -> void:
 	query.collision_mask = 1
 
 	var hit := space_state.intersect_ray(query)
+	get_tree().call_group("Enemy" , "target_position" , target.global_transform.origin)
 	#print(hit) # debug testing
 
 	if hit.size() > 0:
 		var pos: Vector3 = hit.position
 		var look_target := Vector3(pos.x, player.global_position.y, pos.z)
 		player.look_at(look_target, Vector3.UP)
+		
