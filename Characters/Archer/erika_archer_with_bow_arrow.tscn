@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhaav7apyhxgo"]
+
+[ext_resource type="PackedScene" uid="uid://cs15hduwqoenr" path="res://Characters/Archer/Erika Archer With Bow Arrow.fbx" id="1_vdfar"]
+
+[node name="Erika Archer With Bow Arrow" instance=ExtResource("1_vdfar")]

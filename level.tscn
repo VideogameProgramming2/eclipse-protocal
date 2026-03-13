@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://cf5kiw1h2ibjt"]
+[gd_scene load_steps=12 format=3 uid="uid://cf5kiw1h2ibjt"]
 
 [ext_resource type="Script" uid="uid://bxu54q5wp043k" path="res://LevelController.gd" id="1_oi3di"]
 [ext_resource type="Script" uid="uid://bu5u62qfayuf2" path="res://player.gd" id="1_u52ul"]
-[ext_resource type="PackedScene" uid="uid://d1lapn5j0bxk1" path="res://Characters/akai_e_espiritu.fbx" id="2_vonw3"]
 [ext_resource type="Script" uid="uid://ih4enab4o1ss" path="res://enemy.gd" id="4_0b4ue"]
+[ext_resource type="Script" uid="uid://barqjqwc30goi" path="res://animator.gd" id="4_1ainy"]
+[ext_resource type="PackedScene" uid="uid://cs15hduwqoenr" path="res://Characters/Archer/Erika Archer With Bow Arrow.fbx" id="4_f2txt"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vonw3"]
 
@@ -35,8 +36,67 @@ surface_material_override/0 = SubResource("StandardMaterial3D_oi3di")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_u52ul")
 
-[node name="akai_e_espiritu" parent="Player" instance=ExtResource("2_vonw3")]
-transform = Transform3D(-0.9999998, 0, 0.00057593186, 0, 1, 0, -0.00057593186, 0, -0.9999998, 0, -0.95336753, 0)
+[node name="Erika Archer With Bow Arrow" parent="Player" instance=ExtResource("4_f2txt")]
+transform = Transform3D(-0.99999976, 0, 0.00069824053, 0, 1, 0, -0.00069824053, 0, -0.99999976, 0, -1.0055311, 0)
+
+[node name="GeneralSkeleton" parent="Player/Erika Archer With Bow Arrow" index="0"]
+bones/0/position = Vector3(1.3092364e-05, 0.9402084, 2.2304244e-05)
+bones/0/rotation = Quaternion(0.026101429, -0.5149711, 0.033131685, 0.8561693)
+bones/1/rotation = Quaternion(0.089100264, 0.0040473216, -0.037223842, 0.9953187)
+bones/2/rotation = Quaternion(0.020086728, 0.009030771, -0.023327006, 0.9994853)
+bones/3/rotation = Quaternion(0.04915291, 0.010533922, -0.023242308, 0.99846524)
+bones/4/rotation = Quaternion(0.03505602, 0.010778849, 0.033354677, 0.99877053)
+bones/5/rotation = Quaternion(-0.14857288, 0.4578437, -0.05136247, 0.8750241)
+bones/9/rotation = Quaternion(0.5648171, 0.5278238, -0.5414456, 0.33048514)
+bones/10/rotation = Quaternion(0.36410606, -0.3515832, -0.0075296867, 0.86241496)
+bones/11/rotation = Quaternion(0.0029977076, 0.0017224386, 0.39707276, 0.91778064)
+bones/12/rotation = Quaternion(-0.008299715, -0.08945668, 0.014987845, 0.99584335)
+bones/13/rotation = Quaternion(0.33874518, 0.38064307, 0.24444908, 0.8249892)
+bones/14/rotation = Quaternion(-0.06709095, -0.0041412027, -0.25092545, 0.96566975)
+bones/15/rotation = Quaternion(-0.13795227, -0.006167154, -0.3427167, 0.9292344)
+bones/17/rotation = Quaternion(0.50912553, 0.028637318, -0.071457796, 0.8572427)
+bones/18/rotation = Quaternion(0.6977048, 0.0033577997, -0.111204594, 0.70769376)
+bones/19/rotation = Quaternion(0.353294, -0.007718301, -0.08109373, 0.93195903)
+bones/21/rotation = Quaternion(0.52219635, -0.04986553, -0.04439804, 0.8502077)
+bones/22/rotation = Quaternion(0.6769338, -0.0042692516, -0.12889932, 0.7246567)
+bones/23/rotation = Quaternion(0.3192664, 0.002918535, -0.052648496, 0.9461969)
+bones/25/rotation = Quaternion(0.5091256, -0.12235092, -0.056224316, 0.85009426)
+bones/26/rotation = Quaternion(0.5403506, 0.016473262, -0.12073799, 0.83256966)
+bones/27/rotation = Quaternion(0.56706536, -0.002925986, -0.11367527, 0.81578565)
+bones/29/rotation = Quaternion(0.4431475, -0.20382003, -0.06725008, 0.87037647)
+bones/30/rotation = Quaternion(0.663939, 0.0061443066, -0.12037614, 0.7380087)
+bones/31/rotation = Quaternion(0.48731813, -0.0037535257, -0.095812686, 0.8679442)
+bones/33/rotation = Quaternion(0.53958046, -0.46375924, 0.5368023, -0.45345733)
+bones/35/rotation = Quaternion(-0.56603074, 0.51578987, -0.5204434, -0.3777683)
+bones/36/rotation = Quaternion(0.41432536, -0.06498695, 0.018458607, 0.90761805)
+bones/37/rotation = Quaternion(0.08671044, 0.13857232, -0.3295662, 0.92987376)
+bones/38/rotation = Quaternion(-0.168, 0.24681427, -0.053015985, 0.9529156)
+bones/39/rotation = Quaternion(0.3391073, 0.14107722, -0.13423946, 0.9203713)
+bones/40/rotation = Quaternion(-0.116917945, 0.035680316, 0.17449404, 0.97704095)
+bones/41/rotation = Quaternion(0.06463242, -0.00317516, -0.19823708, 0.9780157)
+bones/43/rotation = Quaternion(0.0037071295, 0.0036307855, -0.004176064, 0.9999779)
+bones/44/rotation = Quaternion(0.044355534, -0.00016897314, 0.001851912, 0.99901414)
+bones/45/rotation = Quaternion(-0.024933431, -0.00040104592, 0.016684154, 0.99954987)
+bones/47/rotation = Quaternion(0.019021949, 0.0019868512, 0.052215524, 0.9984527)
+bones/48/rotation = Quaternion(0.20721301, -0.004627383, 0.042435728, 0.9773641)
+bones/49/rotation = Quaternion(-0.049850512, -0.0005079697, -0.017335584, 0.99860615)
+bones/51/rotation = Quaternion(0.031222835, -0.0039613624, 0.10322322, 0.99416023)
+bones/52/rotation = Quaternion(0.23126079, -0.0075390236, 0.03904985, 0.97207856)
+bones/53/rotation = Quaternion(0.16835533, -0.0054037333, 0.038131353, 0.98497385)
+bones/55/rotation = Quaternion(0.089570075, 0.0023609072, 0.1690072, 0.9815337)
+bones/56/rotation = Quaternion(0.16272485, -0.025840217, 0.025576038, 0.98600143)
+bones/57/rotation = Quaternion(0.24619623, -0.042653076, 0.059378184, 0.9664587)
+bones/59/rotation = Quaternion(0.16220547, 0.2800163, 0.934287, -0.1496263)
+bones/60/rotation = Quaternion(-0.3411178, 0.056933172, -0.005249316, 0.9382802)
+bones/61/rotation = Quaternion(0.49990803, -0.026972007, -0.12654412, 0.85635924)
+bones/62/rotation = Quaternion(0.35166177, 0.0007910832, -0.005179391, 0.93611246)
+bones/64/rotation = Quaternion(-0.2336074, 0.21156828, 0.9261956, 0.20694947)
+bones/65/rotation = Quaternion(-0.33286008, -0.035288967, -0.02652214, 0.9419424)
+bones/66/rotation = Quaternion(0.53036743, 0.046942897, 0.17404963, 0.82838005)
+bones/67/rotation = Quaternion(0.33840272, -0.0018435322, 0.0069072368, 0.9409743)
+
+[node name="Animator" type="Node" parent="Player/Erika Archer With Bow Arrow"]
+script = ExtResource("4_1ainy")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.80801266, -0.37955976, 0.45061067, -0.3995192, 0.20912902, 0.89255226, -0.43301263, -0.9012211, 0.017337475, 3.518427, 5.0273695, 0.89130926)
@@ -65,3 +125,5 @@ shape = SubResource("CapsuleShape3D_n6hdu")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy"]
 path_desired_distance = 0.5
 target_desired_distance = 1.5
+
+[editable path="Player/Erika Archer With Bow Arrow"]
