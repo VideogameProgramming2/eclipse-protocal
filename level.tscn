@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cf5kiw1h2ibjt"]
+[gd_scene load_steps=19 format=3 uid="uid://cf5kiw1h2ibjt"]
 
 [ext_resource type="Script" uid="uid://bxu54q5wp043k" path="res://LevelController.gd" id="1_oi3di"]
 [ext_resource type="Script" uid="uid://bu5u62qfayuf2" path="res://player.gd" id="1_u52ul"]
 [ext_resource type="Script" uid="uid://ih4enab4o1ss" path="res://enemy.gd" id="4_0b4ue"]
-[ext_resource type="Script" uid="uid://barqjqwc30goi" path="res://animator.gd" id="4_1ainy"]
-[ext_resource type="PackedScene" uid="uid://cs15hduwqoenr" path="res://Characters/Archer/Erika Archer With Bow Arrow.fbx" id="4_f2txt"]
+[ext_resource type="PackedScene" uid="uid://uagb7chpgm6m" path="res://Characters/Archer2/erika_archer.tscn" id="8_i2t4f"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vonw3"]
 
@@ -12,6 +11,41 @@
 albedo_color = Color(0.0627451, 0.22352941, 1, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u52ul"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i2t4f"]
+animation = &"standing_aim_idle_01"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8cye3"]
+animation = &"standing_aim_walk_forward"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2orkt"]
+animation = &"standing_aim_walk_back"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aicyk"]
+animation = &"standing_aim_walk_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8b0r0"]
+animation = &"standing_aim_walk_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_h6smj"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_i2t4f")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_8cye3")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_2orkt")
+blend_point_2/pos = Vector2(0, -1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_aicyk")
+blend_point_3/pos = Vector2(-1, 0)
+blend_point_4/node = SubResource("AnimationNodeAnimation_8b0r0")
+blend_point_4/pos = Vector2(1, 0)
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v5j5c"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5pxul"]
+states/Movement/node = SubResource("AnimationNodeBlendSpace2D_h6smj")
+states/Movement/position = Vector2(382, 100)
+transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_v5j5c")]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_f2txt"]
 vertices = PackedVector3Array(-4.5, 1, -4.5, -4.5, 1, 4.5, 4.5, 1, 4.5, 4.5, 1, -4.5)
@@ -36,67 +70,69 @@ surface_material_override/0 = SubResource("StandardMaterial3D_oi3di")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_u52ul")
 
-[node name="Erika Archer With Bow Arrow" parent="Player" instance=ExtResource("4_f2txt")]
-transform = Transform3D(-0.99999976, 0, 0.00069824053, 0, 1, 0, -0.00069824053, 0, -0.99999976, 0, -1.0055311, 0)
+[node name="AnimationTree" type="AnimationTree" parent="Player"]
+root_node = NodePath("../Erika_Archer")
+tree_root = SubResource("AnimationNodeStateMachine_5pxul")
+anim_player = NodePath("../Erika_Archer/AnimationPlayer")
+parameters/Movement/blend_position = Vector2(0, 0.0037453175)
 
-[node name="GeneralSkeleton" parent="Player/Erika Archer With Bow Arrow" index="0"]
-bones/0/position = Vector3(1.3092364e-05, 0.9402084, 2.2304244e-05)
-bones/0/rotation = Quaternion(0.026101429, -0.5149711, 0.033131685, 0.8561693)
-bones/1/rotation = Quaternion(0.089100264, 0.0040473216, -0.037223842, 0.9953187)
-bones/2/rotation = Quaternion(0.020086728, 0.009030771, -0.023327006, 0.9994853)
-bones/3/rotation = Quaternion(0.04915291, 0.010533922, -0.023242308, 0.99846524)
-bones/4/rotation = Quaternion(0.03505602, 0.010778849, 0.033354677, 0.99877053)
-bones/5/rotation = Quaternion(-0.14857288, 0.4578437, -0.05136247, 0.8750241)
-bones/9/rotation = Quaternion(0.5648171, 0.5278238, -0.5414456, 0.33048514)
-bones/10/rotation = Quaternion(0.36410606, -0.3515832, -0.0075296867, 0.86241496)
-bones/11/rotation = Quaternion(0.0029977076, 0.0017224386, 0.39707276, 0.91778064)
-bones/12/rotation = Quaternion(-0.008299715, -0.08945668, 0.014987845, 0.99584335)
-bones/13/rotation = Quaternion(0.33874518, 0.38064307, 0.24444908, 0.8249892)
-bones/14/rotation = Quaternion(-0.06709095, -0.0041412027, -0.25092545, 0.96566975)
-bones/15/rotation = Quaternion(-0.13795227, -0.006167154, -0.3427167, 0.9292344)
-bones/17/rotation = Quaternion(0.50912553, 0.028637318, -0.071457796, 0.8572427)
-bones/18/rotation = Quaternion(0.6977048, 0.0033577997, -0.111204594, 0.70769376)
-bones/19/rotation = Quaternion(0.353294, -0.007718301, -0.08109373, 0.93195903)
-bones/21/rotation = Quaternion(0.52219635, -0.04986553, -0.04439804, 0.8502077)
-bones/22/rotation = Quaternion(0.6769338, -0.0042692516, -0.12889932, 0.7246567)
-bones/23/rotation = Quaternion(0.3192664, 0.002918535, -0.052648496, 0.9461969)
-bones/25/rotation = Quaternion(0.5091256, -0.12235092, -0.056224316, 0.85009426)
-bones/26/rotation = Quaternion(0.5403506, 0.016473262, -0.12073799, 0.83256966)
-bones/27/rotation = Quaternion(0.56706536, -0.002925986, -0.11367527, 0.81578565)
-bones/29/rotation = Quaternion(0.4431475, -0.20382003, -0.06725008, 0.87037647)
-bones/30/rotation = Quaternion(0.663939, 0.0061443066, -0.12037614, 0.7380087)
-bones/31/rotation = Quaternion(0.48731813, -0.0037535257, -0.095812686, 0.8679442)
-bones/33/rotation = Quaternion(0.53958046, -0.46375924, 0.5368023, -0.45345733)
-bones/35/rotation = Quaternion(-0.56603074, 0.51578987, -0.5204434, -0.3777683)
-bones/36/rotation = Quaternion(0.41432536, -0.06498695, 0.018458607, 0.90761805)
-bones/37/rotation = Quaternion(0.08671044, 0.13857232, -0.3295662, 0.92987376)
-bones/38/rotation = Quaternion(-0.168, 0.24681427, -0.053015985, 0.9529156)
-bones/39/rotation = Quaternion(0.3391073, 0.14107722, -0.13423946, 0.9203713)
-bones/40/rotation = Quaternion(-0.116917945, 0.035680316, 0.17449404, 0.97704095)
-bones/41/rotation = Quaternion(0.06463242, -0.00317516, -0.19823708, 0.9780157)
-bones/43/rotation = Quaternion(0.0037071295, 0.0036307855, -0.004176064, 0.9999779)
-bones/44/rotation = Quaternion(0.044355534, -0.00016897314, 0.001851912, 0.99901414)
-bones/45/rotation = Quaternion(-0.024933431, -0.00040104592, 0.016684154, 0.99954987)
-bones/47/rotation = Quaternion(0.019021949, 0.0019868512, 0.052215524, 0.9984527)
-bones/48/rotation = Quaternion(0.20721301, -0.004627383, 0.042435728, 0.9773641)
-bones/49/rotation = Quaternion(-0.049850512, -0.0005079697, -0.017335584, 0.99860615)
-bones/51/rotation = Quaternion(0.031222835, -0.0039613624, 0.10322322, 0.99416023)
-bones/52/rotation = Quaternion(0.23126079, -0.0075390236, 0.03904985, 0.97207856)
-bones/53/rotation = Quaternion(0.16835533, -0.0054037333, 0.038131353, 0.98497385)
-bones/55/rotation = Quaternion(0.089570075, 0.0023609072, 0.1690072, 0.9815337)
-bones/56/rotation = Quaternion(0.16272485, -0.025840217, 0.025576038, 0.98600143)
-bones/57/rotation = Quaternion(0.24619623, -0.042653076, 0.059378184, 0.9664587)
-bones/59/rotation = Quaternion(0.16220547, 0.2800163, 0.934287, -0.1496263)
-bones/60/rotation = Quaternion(-0.3411178, 0.056933172, -0.005249316, 0.9382802)
-bones/61/rotation = Quaternion(0.49990803, -0.026972007, -0.12654412, 0.85635924)
-bones/62/rotation = Quaternion(0.35166177, 0.0007910832, -0.005179391, 0.93611246)
-bones/64/rotation = Quaternion(-0.2336074, 0.21156828, 0.9261956, 0.20694947)
-bones/65/rotation = Quaternion(-0.33286008, -0.035288967, -0.02652214, 0.9419424)
-bones/66/rotation = Quaternion(0.53036743, 0.046942897, 0.17404963, 0.82838005)
-bones/67/rotation = Quaternion(0.33840272, -0.0018435322, 0.0069072368, 0.9409743)
+[node name="Erika_Archer" parent="Player" instance=ExtResource("8_i2t4f")]
+transform = Transform3D(-0.9999362, 0, -0.01129213, 0, 1, 0, 0.01129213, 0, -0.9999362, 0, -0.9997258, 0)
 
-[node name="Animator" type="Node" parent="Player/Erika Archer With Bow Arrow"]
-script = ExtResource("4_1ainy")
+[node name="Skeleton" parent="Player/Erika_Archer" index="0"]
+bones/0/position = Vector3(0.03180714, 0.9735853, 0.0025099139)
+bones/0/rotation = Quaternion(0.032818183, -0.71349543, 0.01927493, 0.69962543)
+bones/1/rotation = Quaternion(0.055841625, -0.017638773, -0.06719974, 0.99601954)
+bones/2/rotation = Quaternion(0.0030007162, -0.0045638937, -0.0074256402, 0.99995756)
+bones/3/rotation = Quaternion(0.0030586263, -0.00418837, -0.007547574, 0.99995816)
+bones/4/rotation = Quaternion(-0.108634144, 0.04823537, 0.042852886, 0.99198574)
+bones/5/rotation = Quaternion(0.040191628, 0.6223499, -0.034407288, 0.780949)
+bones/9/rotation = Quaternion(0.42186108, 0.5285323, 0.47127765, -0.5662016)
+bones/10/rotation = Quaternion(-0.025654688, 0.926443, -0.00397948, 0.3755388)
+bones/11/rotation = Quaternion(0.0744978, -0.68801934, 0.088366635, 0.71642923)
+bones/12/rotation = Quaternion(0.008259518, 0.3478241, 0.044387054, 0.9364721)
+bones/13/rotation = Quaternion(-0.17656831, 0.82391715, 0.37889665, 0.38265067)
+bones/14/rotation = Quaternion(0.22630069, 0.11962874, -0.044251088, 0.9656701)
+bones/15/rotation = Quaternion(0.33108732, 0.17608458, -0.10460246, 0.92110467)
+bones/17/rotation = Quaternion(0.5100192, 0.035618983, -0.06311293, 0.85710466)
+bones/18/rotation = Quaternion(0.69971704, 0.008307244, -0.097452804, 0.70769346)
+bones/19/rotation = Quaternion(0.35487613, -0.005335273, -0.07407655, 0.9319588)
+bones/21/rotation = Quaternion(0.5199593, -0.044305615, -0.03196997, 0.85244197)
+bones/22/rotation = Quaternion(0.6794353, -0.004197983, -0.114988215, 0.724657)
+bones/23/rotation = Quaternion(0.32028058, 0.0029323697, -0.046077907, 0.946197)
+bones/26/rotation = Quaternion(0.5426123, 0.017639605, -0.109943986, 0.8325702)
+bones/27/rotation = Quaternion(0.5692499, -0.0016076943, -0.1022036, 0.8157857)
+bones/29/rotation = Quaternion(0.44539842, -0.19900423, -0.055282243, 0.871184)
+bones/30/rotation = Quaternion(0.6661959, 0.0055017886, -0.10721913, 0.73800874)
+bones/31/rotation = Quaternion(0.48912197, -0.0042685675, -0.08610737, 0.8679441)
+bones/33/rotation = Quaternion(0.53933764, -0.45729423, 0.539329, -0.45729762)
+bones/35/rotation = Quaternion(0.42385748, -0.58402854, -0.39380482, -0.56936216)
+bones/36/rotation = Quaternion(-0.5325202, 0.8066252, -0.14044501, -0.21460031)
+bones/37/rotation = Quaternion(0.65601194, 0.2961149, -0.6266871, 0.29871005)
+bones/38/rotation = Quaternion(-0.20462653, -0.15596661, -0.044638354, 0.96530294)
+bones/39/rotation = Quaternion(-0.21139419, -0.68327564, -0.19373949, 0.6714997)
+bones/40/rotation = Quaternion(0.34639505, -0.17091516, 0.063977994, 0.92016596)
+bones/41/rotation = Quaternion(-0.10476016, 0.052600883, -0.007819652, 0.99307466)
+bones/43/rotation = Quaternion(0.11572505, -0.042414576, 0.11820586, 0.9853102)
+bones/44/rotation = Quaternion(0.7673538, -0.015556023, 0.108845964, 0.631727)
+bones/45/rotation = Quaternion(0.5034378, 0.003733985, 0.0945587, 0.8588335)
+bones/47/rotation = Quaternion(0.37441772, 0.011151732, 0.10146636, 0.9216245)
+bones/48/rotation = Quaternion(0.72277457, -0.0067800363, 0.122187726, 0.68016267)
+bones/49/rotation = Quaternion(0.661061, -0.015279269, 0.10511794, 0.7427753)
+bones/51/rotation = Quaternion(0.5088952, 0.011468297, 0.06507062, 0.85828894)
+bones/52/rotation = Quaternion(0.6938189, -0.012069238, 0.11499373, 0.71080667)
+bones/53/rotation = Quaternion(0.7400551, -0.00431063, 0.13298668, 0.659253)
+bones/55/rotation = Quaternion(0.55745244, 0.14386958, 0.1467206, 0.8043765)
+bones/56/rotation = Quaternion(0.82064307, -0.017445983, 0.13678533, 0.55455446)
+bones/57/rotation = Quaternion(0.66810244, -0.003052629, 0.11567065, 0.7350171)
+bones/59/rotation = Quaternion(0.34996328, 0.17245921, 0.9019363, -0.18518771)
+bones/60/rotation = Quaternion(0.0049187024, 0.97371167, -0.21803576, -0.065741256)
+bones/61/rotation = Quaternion(-0.062660396, 0.678927, -0.720811, 0.12475335)
+bones/62/rotation = Quaternion(5.3117096e-06, 0.99987394, 0.01588125, 1.8249158e-07)
+bones/64/rotation = Quaternion(-0.16094898, 0.20204152, 0.9584709, 0.12086473)
+bones/65/rotation = Quaternion(0.023863295, 0.9930325, -0.07875871, 0.084345646)
+bones/66/rotation = Quaternion(0.1941126, 0.7421372, -0.6405559, -0.035225805)
+bones/67/rotation = Quaternion(3.3313893e-06, 1, 1.44658225e-05, -2.5570346e-08)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.80801266, -0.37955976, 0.45061067, -0.3995192, 0.20912902, 0.89255226, -0.43301263, -0.9012211, 0.017337475, 3.518427, 5.0273695, 0.89130926)
@@ -126,4 +162,4 @@ shape = SubResource("CapsuleShape3D_n6hdu")
 path_desired_distance = 0.5
 target_desired_distance = 1.5
 
-[editable path="Player/Erika Archer With Bow Arrow"]
+[editable path="Player/Erika_Archer"]

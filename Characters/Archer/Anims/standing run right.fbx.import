@@ -41,9 +41,9 @@ _subresources={
 "animations": {
 "mixamo_com": {
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://Characters/Archer/Anims/mixamo_com.res",
+"save_to_file/fallback_path": "res://Characters/Archer/AnimsRes/run_right.res",
 "save_to_file/keep_custom_tracks": "",
-"save_to_file/path": "uid://b0f3ikutee0xo",
+"save_to_file/path": "uid://b6sgpcqomoq1e",
 "settings/loop_mode": 0,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,
